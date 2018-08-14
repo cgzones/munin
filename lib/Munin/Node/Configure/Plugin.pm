@@ -76,7 +76,7 @@ sub suggestion_string
         $msg = " [$self->{defaultreason}]";
     }
     elsif (! $self->{capabilities}->{autoconf} && ! $self->{capabilities}->{suggest}) {
-        $msg = " [[[ plugin has neither autoconf not suggest support ]]]";
+        $msg = " [[[ plugin has neither autoconf nor suggest support ]]]";
     }
     elsif ( scalar @{$self->{errors}} != 0 ) {
         $msg = " [[[ plugin has errors, see below ]]]";
