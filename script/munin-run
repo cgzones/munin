@@ -152,7 +152,7 @@ sub main
 
 sub check_systemd_run_permissions {
     # verify whether systemd-run can be exected (e.g. unprivileged users cannot execute it)
-    return system("systemd-run --collect --pipe --quiet --wait -- true </dev/null >/dev/null 2>&1") == 0;
+    return system("systemd-run --collect --pipe --quiet --wait --no-ask-password -- true </dev/null >/dev/null 2>&1") == 0;
 }
 
 
