@@ -15,6 +15,9 @@ use Munin::Node::Config;
 use Munin::Node::OS;
 use Munin::Node::Service;
 
+# Untaint $ENV{PATH}
+$ENV{PATH} = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
+
 my $services;
 my $servicedir;
 my $conffile = "$Munin::Common::Defaults::MUNIN_CONFDIR/munin-node.conf";
