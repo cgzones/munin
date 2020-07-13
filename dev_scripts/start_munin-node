@@ -16,4 +16,7 @@ echo "* ${SANDBOX}/var/log/munin-node.log"
 echo "* ..."
 echo "**************************************************"
 echo ""
+
+trap 'echo -e "\n[NOTE] munin-node might still be running!"' SIGINT
+
 tail -f "${SANDBOX}/var/log/munin-node.log"
