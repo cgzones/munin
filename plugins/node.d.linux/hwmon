@@ -90,6 +90,15 @@ $plugin->add_graphs
     denominator => 1,
     fields => {}
    },
+   hwmon_freq =>
+   {
+    title => "Frequency",
+    vlabel => "MHz",
+    category => "sensors",
+    args => "--base 1000 -l 0",
+    denominator => 1000000, # Hz -> MHz
+    fields => {}
+   },
    hwmon_temp =>
    {
     title => "Temperatures",
