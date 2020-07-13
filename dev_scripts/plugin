@@ -39,7 +39,6 @@ run_plugin() {
     local wanted_plugin_name="$1"
     local wanted_plugin_path="$2"
     shift 2
-    local plugin_name
     local symlink_filename
     local abs_wanted_plugin_path
     if echo "$wanted_plugin_path" | grep -q /; then

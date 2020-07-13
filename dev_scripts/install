@@ -40,7 +40,7 @@ make_sandbox() {
 EOF
 
 	XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-}
-	if [ ! -z $XDG_RUNTIME_DIR ] && [ -r "$XDG_RUNTIME_DIR" ]
+	if [ -n "$XDG_RUNTIME_DIR" ] && [ -r "$XDG_RUNTIME_DIR" ]
 	then
 		mkdir -p "$XDG_RUNTIME_DIR/munin-sandbox-var"
 		[ ! -e "sandbox/var" ] && ln -sv "$XDG_RUNTIME_DIR/munin-sandbox-var" sandbox/var
@@ -165,7 +165,7 @@ case ${1:-} in
 		for src in lib/Munin/*/*.pm
 		do
 			dst=${src#*/}
-			cp -vf $src sandbox/lib/perl5/$dst
+			cp -vf "$src" "sandbox/lib/perl5/$dst"
 		done
 		;;
 	"")

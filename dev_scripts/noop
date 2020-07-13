@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Sleep forever
-cd "$(mktmp -d)"
+cd "$(mktmp -d)" || exit
 cat > pause.c <<EOF
 #include <signal.h>
 #include <unistd.h>
