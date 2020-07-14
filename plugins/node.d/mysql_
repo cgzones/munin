@@ -2050,7 +2050,7 @@ sub update_slave {
 
     # We choose master_host here as a stopped slave
     # may not indicate that we have reset all slave capability
-    # however the minimium requirement is a master_host
+    # however the minimum requirement is a master_host
     return 1 if not defined $data->{master_host};
 
     # undef when slave is stopped, or when MySQL fails to calculate

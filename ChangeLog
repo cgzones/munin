@@ -1874,7 +1874,7 @@ munin-2.999.3, 2016-09-04
 Summary
 -------
 
-That release is the 3nd beta of the 3.0 series. It is versioned 2.999.x so
+That release is the 3rd beta of the 3.0 series. It is versioned 2.999.x so
 numeric only sorting works, as we do have distro that rely on that. Packagers
 can use that versioning or 3.0b3
 
@@ -2167,7 +2167,7 @@ munin-2.99.3, 2015-09-15
 Summary
 -------
 
-That release is the 3nd alpha of the 3.0 series. It is versioned 2.99.x so
+That release is the 3rd alpha of the 3.0 series. It is versioned 2.99.x so
 numeric only sorting works, as we do have distro that rely on that.
 
 It mostly consists of fixes.
@@ -3455,7 +3455,7 @@ Chen-Yu Tsai (40):
       cgi/html: group comparison view
 
 Daniel Black (1):
-      spelling fix maximium -> maximum
+      spelling fix -> maximum
 
 Jimmy Shen (1):
       /node.d/tomcat_threads.in: Fix if {'currentThreadsBusy'} go false when it is 0, and add a total value as 'currentThreadCount' so that the chart looks more readable.
@@ -7459,7 +7459,7 @@ munin (1.4.0-alpha2, r2899:2981, 2009-11-13)
 * openvpn and misc ntp_* plugins: fix some nonzero autoconfs
 * mysql_: fix autoconf for missing Cache::Cache
 * zimbra_: fix autoconf when missing perl modules
-* Fix brokem munin-cgi-graph, which was : missing : --list-images param
+* Fix broken munin-cgi-graph, which was : missing : --list-images param
   for munin-graph, a missing chomp($file), and a wrong path to the
   generated png. Also fix HTMLOld passing an array ref instead of an array
 * a bit more debug output for the node server -- note which node each
@@ -7652,7 +7652,7 @@ munin (1.4.0-alpha, r1560:2898, 2009-11-06)
   Thanks to blueyed
 * Adapt patch in #3 to current munin-cgi-graph to obtain munin-fastcgi-graph
 * Install munin-fastcgi-graph
-* munin-update and family: Do not accpet hostnames outside [^-A-Za-z0-9].
+* munin-update and family: Do not accept hostnames outside [^-A-Za-z0-9].
   Issue helpful error message if someone bumps into this.
 * Munin-node-configure: always do "exit 0" even when saying "no" because
   it _is_ a normal exit and we do read the stdout.
@@ -8668,7 +8668,7 @@ munin (1.1.4)
   * Added plugin linux/df_abs
   * Sanitise incoming fieldnames a bit better.
   * Small layout improvements.
-  * Added new options "graph_height" and "graph_width", to beter control size.
+  * Added new options "graph_height" and "graph_width", to better control size.
   * Added support for SNMP probing.
   * SNMP plugin "if" now accepts PPP interfaces as well as ethernet
     interfaces.

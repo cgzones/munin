@@ -151,7 +151,7 @@ Both the ``snmp__df`` and the ``snmp__if_`` plugins use this.  The df plugin bec
 
 For a plugin named in the pattern analogous to ``snmp__if_`` each of the indices will be used at the end of the plugin name, e.g. ``snmp_switch_if_10`` for a device named switch, interface index 10.
 
-* The word ``require`` followed by an OID or the root of an OID that must exist on a SNMP agent. The OID may optionally be followed by a string or RE-pattern that specifies what sort of response is expected.  For a indexed plugin (one that gives "number" and "index" the indecies will be appended to the require OID to check that OID for each indexed item (e.g. a interface)
+* The word ``require`` followed by an OID or the root of an OID that must exist on a SNMP agent. The OID may optionally be followed by a string or RE-pattern that specifies what sort of response is expected.  For a indexed plugin (one that gives "number" and "index" the indices will be appended to the require OID to check that OID for each indexed item (e.g. a interface)
 
 Example:
 

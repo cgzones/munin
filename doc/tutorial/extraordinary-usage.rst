@@ -9,6 +9,6 @@ Most of us use Munin to monitor network traffic and service activities in IT env
 Examples
 --------
 
- * `Monitoring the temparature values of a Ökofen Pellematic <http://honk.sigxcpu.org/con/Monitoring_the_temparature_values_of_a__kofen_Pellematic_using_munin.html>`_
+ * `Monitoring the temperature values of a Ökofen Pellematic <http://honk.sigxcpu.org/con/Monitoring_the_temparature_values_of_a__kofen_Pellematic_using_munin.html>`_
  * `How to write a plugin to monitor departures from Munich airport <http://www.linuxjournal.com/magazine/muninmdashthe-raven-reports>`_
 

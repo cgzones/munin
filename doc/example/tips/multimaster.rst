@@ -53,7 +53,7 @@ The trick about having multiple master running to update is :
 
 Of course, all hosts must have access to the shared nfs directory.
 
-Exemples will consider the shared folder /nfs/munin.
+Examples will consider the shared folder /nfs/munin.
 
 Running munin-update
 ====================

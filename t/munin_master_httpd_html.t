@@ -57,7 +57,7 @@ $path_info = "";
 Munin::Master::HTML::handle_request($cgi);
 
 # We need to start a new line before done_testing(), otherwise the testing
-# framework cannot correclty parse the test results output
+# framework cannot correctly parse the test results output
 print "\n";
 done_testing();
 
