@@ -1,0 +1,10 @@
+# systemd-tmpfiles definition for munin-common
+#
+# This temporary directory is used by the munin master daemons. Write
+# access to the directory is granted for group "munin".
+#
+# See tmpfiles.d(5) for details
+#
+
+# keep in sync with debian/munin.munin-tmpfiles.init (non-systemd)
+d /run/munin 0755 munin munin

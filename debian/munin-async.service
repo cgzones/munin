@@ -1,0 +1,18 @@
+[Unit]
+Description=Munin Node - asynchronous proxy
+Documentation=man:munin-async http://guide.munin-monitoring.org/en/latest/reference/munin-async.html
+Wants=munin-node.service
+After=munin-node.service
+
+[Service]
+Type=simple
+Restart=always
+User=munin-async
+ExecStart=/usr/bin/munin-asyncd --spool /var/spool/munin/async
+PrivateDevices=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

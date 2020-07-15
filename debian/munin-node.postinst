@@ -1,0 +1,97 @@
+#! /bin/sh
+
+set -e
+
+USER=munin-node
+GROUP=munin-node
+HOME_DIR=/var/lib/munin-node
+LOG_DIR=/var/log/munin-node
+PLUGIN_CONF_DIR=/etc/munin/plugin-conf.d
+MUNIN_NODE_CONF_LOG="${LOG_DIR}/munin-node-configure.log"
+
+log() {
+    timestamp=$(date --rfc-3339=seconds)
+    printf "%s %s\n" "$timestamp" "$@"
+}
+
+ensure_system_user() {
+    if ! getent passwd $USER >/dev/null; then
+	adduser --group --system --no-create-home --home $HOME_DIR $USER
+    fi
+}
+
+ensure_dir_permissions() {
+    install -d -m 0750 -o $USER -g adm $LOG_DIR
+    install -d -m 0750 -o root -g $GROUP $PLUGIN_CONF_DIR
+}
+
+init_plugins() {
+    prevver=${1:-}
+
+    TMPFILE=$(mktemp /tmp/munin-node.configure.XXXXXXXXXX)
+    TMPFILE_STDERR=$(mktemp /tmp/munin-node.configure.err.XXXXXXXXXX)
+    trap 'rm -f "$TMPFILE" "$TMPFILE_STDERR"' EXIT
+
+    if [ -n "$prevver" ]; then
+	MUNIN_NODE_CMD="munin-node-configure --shell --newer \"${prevver%-*}\""
+	log "Initializing new plugins since ${prevver}"
+    else
+	MUNIN_NODE_CMD="munin-node-configure --shell"
+	log "Initializing plugins"
+    fi
+
+    $MUNIN_NODE_CMD 2>"$TMPFILE_STDERR" >"$TMPFILE" || true
+
+    if [ -f "$TMPFILE" ]; then
+        timestamp=$(date --rfc-3339=seconds)
+	log "Starting $MUNIN_NODE_CMD"
+	sed -e "s/^/$timestamp /g" "$TMPFILE" >> "$MUNIN_NODE_CONF_LOG"
+
+        if [ -s "$TMPFILE_STDERR" ]; then
+	    log "The following errors were reported by $MUNIN_NODE_CMD"
+	    sed -e "s/^/$timestamp /g" "$TMPFILE_STDERR" >> "$MUNIN_NODE_CONF_LOG"
+        fi
+	sh < "$TMPFILE"
+    else
+	log "failed"
+    fi
+    log "done"
+}
+
+restart_munin_node() {
+    invoke-rc.d munin-node restart
+}
+
+remove_broken_plugin_links() {
+    # Removes broken symlinks left in /etc/munin/plugins after plugins
+    # have been uninstalled
+    find /etc/munin/plugins -type l -xtype l -delete
+}
+
+case "$1" in
+    configure)
+        ensure_system_user
+        ensure_dir_permissions
+	;;
+    triggered)
+        case "$2" in
+            "munin-plugins")
+                init_plugins
+                remove_broken_plugin_links
+                restart_munin_node
+                ;;
+            "perl-major-upgrade")
+                restart_munin_node
+                ;;
+        esac
+	;;
+    abort-upgrade|abort-deconfigure|abort-remove)
+	:
+	;;
+    *)
+	echo "Called with unknown argument $1, bailing out."
+	exit 1
+	;;
+esac
+
+#DEBHELPER#

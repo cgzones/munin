@@ -1,0 +1,48 @@
+#! /bin/bash
+
+set -e
+
+ensure_usergroup() {
+
+    if ! getent passwd munin >/dev/null; then
+        adduser --system \
+                --group \
+                --no-create-home \
+                --home /var/lib/munin \
+                munin
+    fi
+
+    if ! getent passwd munin-httpd >/dev/null; then
+        adduser --system \
+                --ingroup munin \
+                --no-create-home \
+                --home /nonexistent \
+                munin-httpd
+    fi
+}
+
+migration_remove_munin_2x_files() {
+    find /var/log/munin -name 'munin-cgi-graph.log*' -delete
+    find /var/log/munin -name 'munin-cgi-html.log*' -delete
+    rm -rf /var/cache/munin/www
+}
+
+case "$1" in
+    configure)
+        ensure_usergroup
+        install -o munin -g munin -m 0755 -d /var/lib/munin
+        install -o munin -g munin -m 0755 -d /var/spool/munin/update
+        if dpkg --compare-versions "$2" le "2.1.999-1~" ; then
+            migration_remove_munin_2x_files
+        fi
+        ;;
+    abort-upgrade|abort-deconfigure|abort-remove)
+        :
+        ;;
+    *)
+        echo "Called with unknown argument $1, bailing out."
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#

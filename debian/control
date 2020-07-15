@@ -1,0 +1,551 @@
+Source: munin
+Section: net
+Priority: optional
+Maintainer: Munin Debian Maintainers <team+munin@tracker.debian.org>
+Uploaders: Holger Levsen <holger@debian.org>,
+ Stig Sandbeck Mathisen <ssm@debian.org>,
+Build-Depends-Indep:
+ default-jdk-headless,
+ devscripts,
+ libdbd-pg-perl,
+ libdbd-sqlite3-perl,
+ libdevel-nytprof-perl,
+ libfile-copy-recursive-perl,
+ libfile-readbackwards-perl,
+ libfile-slurp-perl,
+ libhtml-template-perl,
+ libhtml-template-pro-perl,
+ libio-socket-inet6-perl,
+ libio-stringy-perl,
+ liblist-moreutils-perl,
+ liblog-dispatch-perl,
+ libnet-dns-perl,
+ libnet-ip-perl,
+ libnet-server-perl,
+ libnet-snmp-perl,
+ libnet-ssleay-perl,
+ libparallel-forkmanager-perl,
+ libparams-validate-perl,
+ librrds-perl,
+ libtest-class-perl,
+ libtest-deep-perl,
+ libtest-differences-perl,
+ libtest-exception-perl,
+ libtest-longstring-perl,
+ libtest-mockmodule-perl,
+ libtest-mockobject-perl,
+ libtest-perl-critic-perl,
+ liburi-perl,
+ libwww-perl,
+ libxml-dumper-perl,
+ libxml-libxml-perl,
+ libxml-parser-perl,
+ perl,
+ python,
+ python3-sphinx,
+ ruby,
+Build-Depends: debhelper-compat (=12), libmodule-build-perl
+Rules-Requires-Root: no
+Standards-Version: 4.4.1
+Homepage: http://munin-monitoring.org
+Vcs-Git: https://salsa.debian.org/debian/munin.git -b debian-experimental
+Vcs-Browser: https://salsa.debian.org/debian/munin
+
+Package: munin-node
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ adduser,
+ libnet-server-perl,
+ libmunin-node-perl,
+ munin-common (>= ${binary:Version}),
+ netbase,
+Recommends:
+ munin-plugins-core,
+Suggests:
+ munin-plugins-extra,
+ munin-plugins-http,
+ munin-plugins-java,
+ munin-plugins-pgsql,
+ munin-plugins-snmp,
+ munin,
+Description: network-wide graphing framework (node)
+ This package contains the daemon for the nodes being monitored. You
+ should install it on all the nodes in your network. It will know how
+ to extract all sorts of data from the node it runs on, and will wait
+ for the gatherer to request this data for further processing.
+ .
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ Munin is written in Perl, and relies heavily on Tobi Oetiker's
+ excellent RRDtool. To see a real example of Munin in action, you can
+ follow a link from <http://munin-monitoring.org/> to a live
+ installation.
+
+Package: munin-plugins-core
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libmunin-plugin-perl,
+ munin-common,
+ procps,
+ gawk,
+Suggests:
+ acpi | lm-sensors,
+ ethtool,
+ hdparm,
+ conntrack,
+ smartmontools,
+ net-tools,
+ time,
+ libfile-readbackwards-perl,
+ libnet-netmask-perl,
+ libxml-simple-perl,
+ logtail,
+ libtext-csv-xs-perl,
+ libnet-telnet-perl,
+ libxml-parser-perl,
+ libcache-cache-perl,
+ libnet-dns-perl,
+Replaces: munin-plugins-extra (<< 2.999.1-1~)
+Breaks: munin-plugins-extra (<< 2.999.1-1~)
+Description: network-wide graphing framework (plugins for node)
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains the official plugins for the Munin node,
+ capable of extracting common values such as cpu usage, network usage,
+ load average, and so on.
+ .
+ This package suggests, but does not depend on, modules and utilities
+ needed by the various munin plugins.
+
+Package: munin-plugins-extra
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ munin-common,
+Recommends:
+ python3,
+ ruby,
+Suggests:
+ libcache-memcached-perl,
+ libhttp-date-perl,
+ libnet-ip-perl,
+ libnet-netmask-perl,
+ libnet-snmp-perl,
+ libtext-csv-xs-perl,
+ libwww-perl,
+ libxml-libxml-perl,
+Replaces: munin-plugins-core (<< 2.999.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~)
+Description: community contributed plugins for munin node
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains community contributed plugins for the Munin
+ node.
+
+Package: munin-plugins-java
+Architecture: all
+Depends: ${misc:Depends},
+ munin-common,
+ default-jre-headless,
+Replaces: munin-plugins-core (<< 2.999.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~)
+Description: Java-related plugins for munin node
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring Java-related
+ services.
+
+Package: munin-plugins-http
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libmunin-plugin-http-perl,
+ libwww-perl,
+ munin-common,
+Replaces: munin-plugins-core (<< 2.999.1-1~),
+ munin-plugins-extra (<<2.999.6-5)
+Breaks: munin-plugins-core (<< 2.999.1-1~),
+ munin-plugins-extra (<<2.999.6-5)
+Description: munin plugins for monitoring web servers
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring web servers using
+ http.
+
+Package: munin-plugins-mysql
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libdbd-mysql-perl,
+ libcache-cache-perl,
+ munin-common,
+ default-mysql-client,
+Replaces: munin-plugins-core (<< 2.999.1-1~),
+ munin-plugins-extra (<<2.999.6-5)
+Breaks: munin-plugins-core (<< 2.999.1-1~),
+ munin-plugins-extra (<<2.999.6-5)
+Description: munin plugins for monitoring MySQL
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring MySQL servers.
+
+Package: munin-plugins-pgsql
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libdbd-pg-perl,
+ libmunin-plugin-pgsql-perl,
+Replaces: munin-plugins-core (<< 2.999.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~)
+Description: munin plugins for monitoring PostgreSQL
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring PostgreSQL
+ servers.
+
+Package: munin-plugins-snmp
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libmunin-plugin-snmp-perl,
+ munin-common,
+Replaces: munin-plugins-core (<< 2.999.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~)
+Description: munin plugins for monitoring remote devices with SNMP
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring remote devices
+ with SNMP.
+
+Package: munin-plugins-ldap
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+Recommends: libnet-ldap-perl
+Replaces: munin-plugins-core (<< 2.999.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~)
+Description: munin plugins for monitoring LDAP servers
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring LDAP servers.
+
+Package: munin-plugins-irc
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libnet-irc-perl,
+Replaces: munin-plugins-core (<< 2.999.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~)
+Description: munin plugins for monitoring IRC servers
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugin for monitoring IRC servers.
+
+Package: munin-plugins-dns
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}, bind9utils
+Replaces: munin-plugins-core (<< 2.999.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~)
+Description: munin plugins for monitoring DNS servers
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring DNS servers.
+
+Package: munin-plugins-mail
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ munin-common,
+Replaces: munin-plugins-core (<< 2.999.1-1~), munin-plugins-extra (<< 2.99.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~), munin-plugins-extra (<< 2.99.1-1~)
+Description: munin plugins for monitoring mail servers
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring mail servers.
+
+Package: munin-plugins-time
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+Replaces: munin-plugins-core (<< 2.999.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~)
+Description: munin plugins for monitoring NTP servers and synchronization
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring time servers and
+ synchronization. Plugins can monitor local and remote NTP servers.
+
+Package: munin-plugins-network
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ munin-common,
+Replaces: munin-plugins-core (<< 2.999.1-1~)
+Breaks: munin-plugins-core (<< 2.999.1-1~)
+Description: munin plugins for monitoring network traffic
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring network traffic
+ and usage.  Common tools used is netfilter/iptables, snort.
+
+Package: munin-plugins-jenkins
+Architecture: all
+Depends: ${misc:Depends},
+ munin-common,
+Description: munin plugins for monitoring the Jenkins CI server
+ Munin plugins collect details of a host or its environment.
+ The munin-node daemon provides access to the plugin to local or remote
+ munin master instances.
+ .
+ This package contains munin plugins for monitoring a local Jenkins CI
+ server.
+
+Package: libmunin-perl
+Section: perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ liblog-dispatch-perl,
+ libparams-validate-perl,
+Recommends:
+ libnet-ssleay-perl,
+Replaces: munin-common (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Breaks: munin-common (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Description: common perl modules for munin
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ The Munin and Munin::Common perl modules, used by munin master and
+ node.
+
+Package: libmunin-master-perl
+Section: perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}, libmunin-perl
+Replaces: munin (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Breaks: munin (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Description: perl modules for munin master
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ The Munin::Master perl module, used by munin master.
+
+Package: libmunin-node-perl
+Section: perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}, libmunin-perl
+Replaces: munin-node (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Breaks: munin-node (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Description: perl module Munin::Node
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ The Munin::Node perl module, used by munin-node.
+
+Package: libmunin-plugin-perl
+Section: perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libmunin-perl,
+Replaces: munin-common (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Breaks: munin-common (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Description: perl bindings for munin plugins
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ The Munin::Plugin and Munin::Plugin::Framework perl modules used by
+ various munin plugins.
+
+Package: libmunin-plugin-http-perl
+Section: perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libmunin-plugin-perl,
+ libwww-perl,
+Replaces: munin-plugins-core (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Breaks: munin-plugins-core (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Description: perl bindings for HTTP munin plugins
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ The Munin::Plugin::HTTP perl module for munin plugins.
+
+Package: libmunin-plugin-snmp-perl
+Section: perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libmunin-plugin-perl,
+ libnet-snmp-perl,
+Replaces: munin-plugins-core (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Breaks: munin-plugins-core (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Description: perl bindings for SNMP munin plugins
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ The Munin::Plugin::SNMP perl module used by various SNMP munin
+ plugins.
+
+Package: libmunin-plugin-pgsql-perl
+Section: perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ libmunin-plugin-perl,
+ libdbd-pg-perl,
+Replaces: munin-plugins-core (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Breaks: munin-plugins-core (<< 2.999.1-1~),
+ munin-doc (<<2.999.6-5)
+Description: perl bindings for PostgreSQL munin plugins
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ The Munin::Plugin::Pgsql perl module used by various munin plugins
+ for monitoring PostgreSQL database servers.
+
+Package: munin
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ lsb-base (>= 3.0-6),
+ adduser,
+ cron | cron-daemon | systemd-sysv,
+ fonts-dejavu-core,
+ fonts-materialdesignicons-webfont,
+ libdbd-sqlite3-perl,
+ libfile-copy-recursive-perl,
+ libhtml-template-perl,
+ libhtml-template-pro-perl,
+ libhttp-server-simple-perl,
+ libhttp-server-simple-cgi-prefork-perl,
+ libio-string-perl,
+ libio-socket-inet6-perl,
+ libjs-jquery,
+ liblist-moreutils-perl,
+ libmunin-master-perl,
+ libparallel-forkmanager-perl,
+ librrds-perl,
+ liburi-perl,
+ libxml-dumper-perl,
+ munin-common (>= ${binary:Version}),
+ netbase,
+ rrdcached,
+ rrdtool,
+Recommends: munin-node, munin-doc
+Suggests: www-browser
+Breaks:
+ munin-doc (<<2.999.6-4),
+Replaces:
+ munin-doc (<<2.999.6-4),
+Description: network-wide graphing framework (grapher/gatherer)
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ This package contains the grapher/gatherer. You will only need one
+ instance of it in your network. It will periodically poll all the
+ nodes in your network it's aware of for data, and serves the result
+ in a built-in http server, suitable for viewing with your web browser
+ of choice.
+ .
+ It is also able to alert you if any value is outside of a preset
+ boundary, useful if you want to be alerted if a filesystem is about
+ to grow full, for instance.  You can do this by making Munin run an
+ arbitrary command when you need to be alert it, or make use of the
+ intrinsic Nagios support.
+ .
+ Munin is written in Perl, and relies heavily on Tobi Oetiker's
+ excellent RRDtool. To see a real example of Munin in action, you can
+ follow a link from <http://munin-monitoring.org/> to a live
+ installation.
+
+Package: munin-common
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+Description: network-wide graphing framework (common)
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ This package contains the common perl modules that are used by both
+ munin and munin-node.
+
+Package: munin-async
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends},
+ adduser,
+ munin-common (>= ${binary:Version}),
+ munin-node
+Description: network-wide graphing framework (async master/client)
+ Munin is a highly flexible and powerful solution used to create
+ graphs of virtually everything imaginable throughout your network,
+ while still maintaining a rattling ease of installation and
+ configuration.
+ .
+ This package contains munin-async and munin-asyncd which can be used
+ for (optional) asynchronous operation of munin-update.
+ .
+ Munin is written in Perl, and relies heavily on Tobi Oetiker's
+ excellent RRDtool. To see a real example of Munin in action, you can
+ follow a link from <http://munin-monitoring.org/> to a live
+ installation.
+
+Package: munin-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}, libjs-underscore, libjs-jquery
+Description: network-wide graphing framework (documentation)
+ Munin is a highly flexible and powerful solution used to create graphs of
+ virtually everything imaginable throughout your network, while still
+ maintaining a rattling ease of installation and configuration.
+ .
+ This package contains the munin book as HTML and the POD documentation
+ generated from comments in the code.
+ .
+ Munin is written in Perl, and relies heavily on Tobi Oetiker's excellent
+ RRDtool. To see a real example of Munin in action, you can follow a link
+ from <http://munin-monitoring.org/> to a live installation.

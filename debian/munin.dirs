@@ -1,0 +1,4 @@
+var/lib/munin
+var/log/munin
+etc/munin/munin-conf.d
+var/spool/munin/update

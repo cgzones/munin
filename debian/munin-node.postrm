@@ -1,0 +1,27 @@
+#! /bin/sh
+
+set -e
+
+delete_dir_if_empty() {
+    if [ -d "$1" ]; then
+        rmdir --ignore-fail-on-non-empty "$1"
+    fi
+}
+
+if [ "$1" = "purge" ]; then
+    if [ -d /etc/munin/plugins ]; then
+        find /etc/munin/plugins -type l -xtype l -delete
+    fi
+
+    rm -rf /var/lib/munin-node/plugin-state
+    rm -f /var/log/munin-node/munin-node.log*
+    rm -f /var/log/munin-node/munin-node-configure.log*
+
+    delete_dir_if_empty /var/lib/munin-node
+    delete_dir_if_empty /var/log/munin-node
+    delete_dir_if_empty /etc/munin/plugin-conf.d
+    delete_dir_if_empty /etc/munin/plugins
+    delete_dir_if_empty /etc/munin
+fi
+
+#DEBHELPER#
