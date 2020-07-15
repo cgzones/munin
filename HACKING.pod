@@ -6,16 +6,17 @@
 
 HACKING.pod - contributing to Munin
 
+
 =head1 SYNOPSIS
 
 This is the guide for Munin internals contributors (developers,
-testers, documenters.)
+testers, documenters).
 
 If you are looking for more information on how to I<use> Munin you
-probably want L<http://guide.munin-monitoring.org/> instead.
+probably want L<https://guide.munin-monitoring.org/> instead.
 
 You can find some additional contributing information at
-L<http://guide.munin-monitoring.org/en/latest/others/index.html#contributing>.
+L<https://guide.munin-monitoring.org/en/latest/others/index.html#contributing>.
 
 The Munin code is marked by years on the battle front. You will
 therefore find code that deviates from the guidelines defined
@@ -27,8 +28,9 @@ here. However, all new code should be made to comply.
 
 =head2 GITHUB
 
-The main development of Munin is happening on L<https://github.com>. After
-registering an account you can report feature requests and issues
+The main development of Munin is happening on L<https://github.com>.
+
+After registering an account you can report feature requests and issues
 (L<https://github.com/munin-monitoring/munin/issues/new/choose>) and create
 pull requests (L<https://github.com/munin-monitoring/munin/pulls>).
 
@@ -58,6 +60,12 @@ useful for developing. Most of them are tools for creating and using
 Munin in a sandbox.
 
 =over
+
+=item B<deps>
+
+To install all the dependencies on a Debian based system:
+
+  ./dev_scripts/deps
 
 =item B<install>
 
@@ -96,7 +104,10 @@ To do both:
 
 Use this command to query the munin-node directly:
 
+  ./dev_scripts/query_munin_node args ...
+
   ./dev_scripts/query_munin_node list
+  ./dev_scripts/query_munin_node fetch *pluginname*
 
 =item B<run>
 
@@ -105,6 +116,10 @@ munin-run etc.), use this command.
 It ensures a correct invocation in relation to perl's taint mode.
 
   ./dev_scripts/run CMD [CMD args ...]
+
+  ./dev_scripts/run munin-update
+  ./dev_scripts/run munin-node-configure --suggest
+  ./dev_scripts/run munin-run *pluginname* [autoconf|config]
 
 =item B<start munin-httpd>
 
