@@ -83,6 +83,3 @@ override_dh_installdocs:
 	rm debian/munin-doc/usr/share/doc/munin-common/html/_static/underscore.js; \
 	ln -s /usr/share/javascript/underscore/underscore.js \
 		debian/munin-doc/usr/share/doc/munin-common/html/_static/underscore.js; \
-
-override_dh_missing:
-	dh_missing --fail-missing
