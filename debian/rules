@@ -48,6 +48,9 @@ override_dh_auto_install:
 		LIBDIR=debian/munin-plugins-java/usr/share/munin \
 		JAVALIBDIR=debian/munin-plugins-java/usr/share/munin
 
+override_dh_auto_test:
+	# do nothing
+
 override_dh_strip_nondeterminism:
 	# Sadly "Rules-Requires-Root: no" combined with "ExtUtils::MakeMaker" leads to directories
 	# (and files) with read-only permissions for the owner.
