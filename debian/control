@@ -53,6 +53,7 @@ Vcs-Browser: https://salsa.debian.org/debian/munin
 
 Package: munin-node
 Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${perl:Depends}, ${misc:Depends},
  adduser,
  libnet-server-perl,
@@ -448,6 +449,7 @@ Description: perl bindings for PostgreSQL munin plugins
 
 Package: munin
 Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${perl:Depends}, ${misc:Depends},
  lsb-base (>= 3.0-6),
  adduser,
@@ -516,6 +518,7 @@ Description: network-wide graphing framework (common)
 
 Package: munin-async
 Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${perl:Depends}, ${misc:Depends},
  adduser,
  munin-common (>= ${binary:Version}),
