@@ -1,0 +1,51 @@
+name: GitHub CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    name: Lint check
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo dev_scripts/deps
+        sudo apt-get install -y codespell flake8 shellcheck
+
+    - name: Run Lint checks
+      run: make lint
+
+#  whitespace:
+#    name: Whitespace check
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Run whitespace check
+#        run: git diff-tree --check $(git hash-object -t tree /dev/null) HEAD
+#
+#  format:
+#    name: Format check
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Install dependencies
+#        run: sudo dev_scripts/deps
+#
+#      - name: Setup code
+#        run: make
+#
+#      - name: Format code
+#        run: make apply-formatting
+#
+#      - name: Check for changes
+#        run: git diff --exit-code
