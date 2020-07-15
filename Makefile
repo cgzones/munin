@@ -9,12 +9,16 @@
 # make command line
 DEFAULTS = Makefile.config
 CONFIG = Makefile.config
+JAVA_FRAGMENT = Makefile.javaplugin
 
 PYTHON_LINT_CALL ?= python3 -m flake8
 
 include $(DEFAULTS)
 ifneq ($(DEFAULTS),$(CONFIG))
     include $(CONFIG)
+endif
+ifeq ($(JCVALID),yes)
+include $(JAVA_FRAGMENT)
 endif
 
 # the perl script is used for most perl related activities
@@ -42,7 +46,7 @@ help:
 	@echo
 
 .PHONY: build
-build: $(BUILD_SCRIPT)
+build: $(BUILD_SCRIPT) $(JAVA_BUILD)
 	$(BUILD_SCRIPT)
 
 .PHONY: doc
@@ -50,7 +54,7 @@ doc:
 	$(MAKE) -C doc html
 
 .PHONY: install
-install: $(BUILD_SCRIPT)
+install: $(BUILD_SCRIPT) $(JAVA_INSTALL)
 	"$(BUILD_SCRIPT)" install --destdir="$(DESTDIR)" --verbose
 	@# various directory placeholders (e.g. "@@SPOOLDIR@@") need to be replaced
 	grep -rl --null "@@" "$(or $(DESTDIR),.)" | xargs -0 sed -i \
@@ -135,7 +139,7 @@ lint-whitespace:
 
 
 .PHONY: clean
-clean: $(BUILD_SCRIPT)
+clean: $(BUILD_SCRIPT) $(JAVA_CLEAN)
 	"$(BUILD_SCRIPT)" realclean
 	rm -rf _stage
 	rm -f MANIFEST META.json META.yml

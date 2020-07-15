@@ -103,7 +103,7 @@ public abstract class AbstractGraphsProvider {
 		} catch (NoSuchMethodException e) {
 			// just try default constructor
 			try {
-				return providerClass.newInstance();
+				return providerClass.getConstructor().newInstance();
 			} catch (Exception e1) {
 				throw new IllegalArgumentException(
 						"Can't instantiate provider with default constructor: "

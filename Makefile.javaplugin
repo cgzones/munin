@@ -7,7 +7,7 @@
 ifeq ($(JCVALID),yes)
 JAVA_BUILD=build-plugins-java
 JAVA_INSTALL=install-plugins-java
-JAVA_PLUGINS=plugins/node.d.java/*
+JAVA_CLEAN=clean-plugins-java
 endif
 
 BUILD_DIR        ?= build
@@ -18,14 +18,12 @@ JAVA_DSTDIR      := $(BUILD_DIR)/plugins/javalib
 JAVA_FILES       := $(wildcard plugins/javalib/org/munin/plugin/jmx/*.java)
 JAVA_CLASSES     := $(patsubst %.java,%.class,$(JAVA_FILES))
 
-JC     := javac
-JFLAGS  = -g -sourcepath $(JAVA_SRCDIR) -d $(JAVA_DSTDIR)
+JFLAGS           := -g -Xlint -sourcepath $(JAVA_SRCDIR) -d $(JAVA_DSTDIR)
 
-INSTALL ?= install
+INSTALL          ?= install
 
 
 .PHONY: build-plugins-java
-
 build-plugins-java: $(JAVA_DSTDIR)/munin-jmx-plugins.jar
 
 $(JAVA_DSTDIR)/munin-jmx-plugins.jar: $(JAVA_DSTDIR)/org/munin/plugin/jmx
@@ -35,6 +33,7 @@ $(JAVA_DSTDIR)/org/munin/plugin/jmx: $(JAVA_FILES)
 	mkdir -p $(JAVA_DSTDIR)
 	$(JC) $(JFLAGS) $^
 
+.PHONY: install-plugins-java
 install-plugins-java: $(JAVA_DSTDIR)/munin-jmx-plugins.jar
 	mkdir -p $(JAVALIBDIR)
 	$(INSTALL) -m 0644 $(JAVA_DSTDIR)/munin-jmx-plugins.jar $(JAVALIBDIR)/
@@ -45,3 +44,7 @@ install-plugins-java: $(JAVA_DSTDIR)/munin-jmx-plugins.jar
 		$(INSTALL) -m 0755 $$p $(LIBDIR)/plugins/;     \
 	    fi                                                 \
 	done
+
+.PHONY: clean-plugins-java
+clean-plugins-java:
+	rm -Rf $(JAVA_DSTDIR)
