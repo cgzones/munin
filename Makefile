@@ -61,8 +61,8 @@ install: $(BUILD_SCRIPT)
 apply-formatting:
 	# Format munin perl files with the recommend perltidy settings
 	# This is recommend, but NOT mandatory
-	@# select all scripts except munin-check
-	perltidy script/munin-async script/munin-asyncd script/munin-cron.PL script/munin-doc script/munin-httpd script/munin-limits script/munin-node script/munin-node-configure script/munin-run script/munin-update
+	@# select all perl scripts
+	find script/ -type f ! -name munin-get ! -name munin-check -exec perltidy {} \;
 	@# format munin libraries
 	find lib/ -type f -exec perltidy {} \;
 
