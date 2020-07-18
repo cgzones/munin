@@ -606,7 +606,7 @@ sub handle_request
 		"AREA:n_d_a#FFC73B19",
 		"AREA:n_d_b#00519919",
 		"AREA:n_d_c#AAABA17F",
-	);
+	) if $first_def;
 
 	my $err = RRDs_graph_or_dump(
 		$format,
