@@ -174,18 +174,15 @@ sub _resolve_gids
 
     foreach my $group (@{$group_list||[]}) {
         my $is_optional = ($group =~ m{\A \( ([^)]+) \) \z}xms);
-        $group = $1 if $is_optional;
+        my $real_group = $is_optional ? $1 : $group;
 
-        my $gid = Munin::Node::OS->get_gid($group);
+        my $gid = Munin::Node::OS->get_gid($real_group);
 
-        croak "Group '$group' required for '$service' does not exist"
+        croak "Group '$real_group' required for '$service' does not exist"
             unless defined $gid || $is_optional;
 
-        if (!defined $gid && $is_optional) {
-            carp "DEBUG: Skipping OPTIONAL nonexisting group '$group'"
-                if $config->{DEBUG};
-            next;
-        }
+        next unless defined $gid;
+
         push @groups, $gid;
     }
 
