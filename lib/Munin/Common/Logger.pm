@@ -64,7 +64,8 @@ my $syslog_format = sub {
     return $message;
 };
 
-our $log ||= Log::Dispatch->new();
+our $log;
+$log ||= Log::Dispatch->new();
 
 $log->add(
     Log::Dispatch::Screen->new(

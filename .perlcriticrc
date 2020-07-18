@@ -57,3 +57,6 @@ severity = 5
 
 [Modules::RequireExplicitPackage]
 severity = 5
+
+[Variables::ProhibitAugmentedAssignmentInDeclaration]
+severity = 5
