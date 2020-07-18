@@ -55,7 +55,7 @@ sub handle_request
 		);
 
 		my $filename = get_param("staticdir"). "/$page";
-		my $fh = new IO::File("$filename");
+		my $fh = IO::File->new("$filename");
 
 		if (! $fh) {
 			print "HTTP/1.0 404 Not found\r\n";

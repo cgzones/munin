@@ -97,14 +97,14 @@ unless (-d $SPOOLDIR) {
 
 my $process_name = "main";
 
-my $sock = new IO::Socket::INET(
+my $sock = IO::Socket::INET->new(
 	PeerAddr        => "$host",
 	Proto   => 'tcp'
 );
 if (!$sock) {
 	print STDERR "[$$][$process_name] Failed to connect to munin-node - trying again in a few seconds ...\n" if $verbose;
 	sleep 20;
-	$sock = new IO::Socket::INET(
+	$sock = IO::Socket::INET->new(
 		PeerAddr => "$host",
 		Proto => 'tcp'
 	) || LOGCROAK("Error connecting to munin node ($host): $!");
@@ -149,7 +149,7 @@ $0 = "munin-asyncd [$metahostname] [idle]";
 my $plugins = {};
 {
 	INFO("[$$][$process_name] Reading config from $host");
-	my $sock = new IO::Socket::INET(
+	my $sock = IO::Socket::INET->new(
 		PeerAddr	=> "$host",
 		Proto	=> 'tcp'
 	) || die "Error creating socket: $!";
@@ -259,7 +259,7 @@ MAIN: while($keepgoing) {
 			}
 
 			unless ($sock) {
-				$sock = new IO::Socket::INET(
+				$sock = IO::Socket::INET->new(
 					PeerAddr	=> "$host",
 					Proto	=> 'tcp'
 				);

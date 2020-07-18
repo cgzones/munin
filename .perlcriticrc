@@ -50,3 +50,7 @@ severity = 5
 
 [Modules::RequireEndWithOne]
 severity = 5
+
+[Objects::ProhibitIndirectSyntax]
+forbid = create destroy
+severity = 5

@@ -694,7 +694,7 @@ sub RRDs_graph_or_dump {
 
 	# Open outfile
 	DEBUG "[DEBUG] Open outfile($outfile)";
-	my $out_fh = new IO::File(">$outfile");
+	my $out_fh = IO::File->new(">$outfile");
 
 	# Remove unknown args
 	my @xport;

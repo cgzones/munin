@@ -22,7 +22,7 @@ sub TIEHASH {
 		filename => $filename,
 	};
 
-	new IO::File($filename, O_CREAT) unless (-f $filename);
+	IO::File->new($filename, O_CREAT) unless (-f $filename);
 
 	return bless($self, $classname);
 }

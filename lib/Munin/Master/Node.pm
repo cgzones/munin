@@ -71,14 +71,14 @@ sub _do_connect {
 
     # Parameters are space-separated from the main address
     my ($url, $params) = split(/ +/, $self->{address}, 2);
-    my $uri = new URI($url);
+    my $uri = URI->new($url);
 
     # If address is only "ssh://host/" $params will not get set
     $params = "" unless defined $params;
 
     # If the scheme is not defined, it's a plain host.
     # Prefix it with munin:// to be able to parse it like others
-    $uri = new URI("munin://" . $url) unless $uri->scheme;
+    $uri = URI->new("munin://" . $url) unless $uri->scheme;
     LOGCROAK("[FATAL] '$url' is not a valid address!") unless $uri->scheme;
 
     my $port = $self->{port} || $uri->{port};
@@ -115,9 +115,9 @@ sub _do_connect {
 	    # PATH has to be clean
 	    local $ENV{PATH} = '/usr/sbin:/usr/bin:/sbin:/bin';
 
-	    $self->{reader} = new IO::Handle();
-	    $self->{writer} = new IO::Handle();
-	    $self->{stderr} = new IO::Handle();
+	    $self->{reader} = IO::Handle->new();
+	    $self->{writer} = IO::Handle->new();
+	    $self->{stderr} = IO::Handle->new();
 
 	    DEBUG "[DEBUG] open3($remote_connection_cmd)";
 	    $self->{pid} = open3($self->{writer}, $self->{reader}, $self->{stderr}, $remote_connection_cmd);
@@ -133,9 +133,9 @@ sub _do_connect {
 	    # PATH has to be clean
 	    local $ENV{PATH} = '/usr/sbin:/usr/bin:/sbin:/bin';
 
-	    $self->{reader} = new IO::Handle();
-	    $self->{writer} = new IO::Handle();
-	    $self->{stderr} = new IO::Handle();
+	    $self->{reader} = IO::Handle->new();
+	    $self->{writer} = IO::Handle->new();
+	    $self->{stderr} = IO::Handle->new();
 
 	    DEBUG "[DEBUG] open3($local_pipe_cmd)";
 	    $self->{pid} = open3($self->{writer}, $self->{reader}, $self->{stderr}, $local_pipe_cmd);
