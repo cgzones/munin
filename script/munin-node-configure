@@ -330,6 +330,18 @@ sub init_snmp
 
 ### Running plugins and analysing responses ####################################
 
+sub _language_unsupported
+{
+    my ($plugin) = @_;
+
+    return 0 unless $plugin->{language};
+
+    return 0 if -x "/usr/bin/$plugin->{language}";
+    return 0 if -x "/bin/$plugin->{language}";
+
+    return 1;
+}
+
 # Runs the plugin with argument $mode (eg. 'suggest', 'autoconf') and runs
 # tests on the results.  Assuming no errors were detected, returns a list
 # of the lines printed to STDOUT, with any debug output removed.
@@ -386,6 +398,11 @@ sub run_plugin
 			return;
 		}
 		elsif ($plugin_exit) {
+            if ($plugin_exit == 42 and _language_unsupported($plugin)) {
+                $plugin->{defaultreason} = "[[ Required interpreter for language '$plugin->{language}' not found ]]";
+                return;
+            }
+
             $plugin->log_error("Non-zero exit during $mode ($plugin_exit)");
             if (my @junk = grep !/^#/, @{ $res->{stderr} }) {
                $plugin->log_error("Junk printed to stderr");

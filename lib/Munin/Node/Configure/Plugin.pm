@@ -4,6 +4,8 @@ package Munin::Node::Configure::Plugin;
 use strict;
 use warnings;
 
+use Carp;
+
 use Munin::Node::Utils qw(set_intersection set_difference);
 use Munin::Node::Configure::Debug;
 
@@ -23,6 +25,7 @@ sub new
         suggestions  => [],         # list of suggestions (as wildcards)
         family       => 'contrib',  # the family it belongs to
         capabilities => {},         # what capabilities it supports
+        language     => undef,      # the language the plugin is written in, useful for uncommon ones like ruby
         errors       => [],         # list of errors reported against this plugin
 
         %opts,
@@ -189,19 +192,27 @@ sub read_magic_markers
     DEBUG("\tReading magic markers.");
 
     unless (open ($PLUGIN, '<', $self->{path})) {
-        DEBUG("Could not open plugin '$self->{path}' for reading: $!");
+        carp "Could not open file '$self->{path}' of plugin '$self->{name}' for reading: $!";
+        $self->log_error("Could not open plugin '$self->{path}' for reading: $!");
         return;
     }
 
     while (<$PLUGIN>) {
-        if (/#%#\s+family\s*=\s*(\S+)\s*/) {
+        if (/#%#\s+family\s*=\s*(\w+)\s*/) {
             $self->{family} = $1;
-            DEBUG("\tSet family to '$1'." );
+            DEBUG("\tSet family to '$1'.");
         }
-        elsif (/#%#\s+capabilities\s*=\s*(.+)/) {
+        elsif (/#%#\s+capabilities\s*=\s*(.*)/) {
             my @caps = split(/\s+/, $1);
             @{$self->{capabilities}}{@caps} = (1) x scalar @caps;
             DEBUG("\tCapabilities are: $1");
+        }
+        elsif (/#%#\s+language\s*=\s*(\w+)\s*/) {
+            $self->{language} = $1;
+            DEBUG("\tSet language to '$1'");
+        }
+        elsif (/#%#\s+(\w+)\s*=.*/) {
+            carp "Unsupported magic marker '$1' for plugin '$self->{name}'.";
         }
     }
     close ($PLUGIN);
