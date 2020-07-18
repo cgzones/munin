@@ -210,7 +210,7 @@ sub read_magic_markers
     $self->log_error(q{In family 'auto' but doesn't have 'autoconf' capability})
         if ($self->{family} eq 'auto' and not $self->{capabilities}{autoconf});
 
-    $self->log_error(q{In family 'auto' but doesn't have 'autoconf' capability})
+    $self->log_error(q{In family 'snmpauto' but doesn't have 'autoconf' capability})
         if ($self->{family} eq 'snmpauto' and not $self->{capabilities}{snmpconf});
 
     $self->log_error(q{Has 'suggest' capability, but isn't a wildcard plugin})
