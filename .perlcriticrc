@@ -63,3 +63,6 @@ severity = 5
 
 [InputOutput::ProhibitExplicitStdin]
 severity = 5
+
+[Modules::ProhibitMultiplePackages]
+severity = 5

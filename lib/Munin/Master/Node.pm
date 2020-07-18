@@ -504,7 +504,7 @@ sub _node_read {
 }
 
 # Defines the URL::scheme for munin
-package URI::munin;
+package URI::munin;    ## no critic qw(Modules::ProhibitMultiplePackages)
 
 # We are like a generic server
 require URI::_server;
