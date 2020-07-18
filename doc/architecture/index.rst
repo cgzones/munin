@@ -76,7 +76,6 @@ We have some more standard arguments, which play a role in the process of automa
         ../plugin/protocol-multigraph.rst
         ../plugin/snmp.rst
         ../plugin/use.rst
-        ../plugin/writing-tips.rst
         ../plugin/writing.rst
         ../plugin/supersampling.rst
 
@@ -118,3 +117,11 @@ API
    :maxdepth: 2
 
    api.rst
+
+ALTERNATIVES
+============
+
+.. toctree::
+   :maxdepth: 2
+
+   munin-c.rst

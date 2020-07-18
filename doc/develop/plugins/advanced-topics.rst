@@ -120,8 +120,8 @@ writable directory that is owned by the user running the plugin and a file that 
 :ref:`master <master-index>` that is requesting data from this plugin. These two storage locations
 serve different purposes and are accessible via environment variables:
 
-* :ref:`MUNIN_PLUGSTATE <plugin-env-MUNIN_PLUGSTATE>`: directory to be used for storing files that should be accessed by other plugins
-* :ref:`MUNIN_STATEFILE <plugin-env-MUNIN_STATEFILE>`: single state file to be used by a plugin that wants to track its state from the last time it was requested by the same master
+* :envvar:`MUNIN_PLUGSTATE`: directory to be used for storing files that should be accessed by other plugins
+* :envvar:`MUNIN_STATEFILE`: single state file to be used by a plugin that wants to track its state from the last time it was requested by the same master
 
 .. note::
 

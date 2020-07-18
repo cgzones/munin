@@ -1,7 +1,5 @@
 .. _munin-html:
 
-.. program:: munin-html
-
 ============
  munin-html
 ============

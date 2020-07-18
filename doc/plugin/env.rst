@@ -13,54 +13,57 @@ vars do begin with the ``MUNIN_`` prefix and are all capitals.
 Munin related
 =============
 
-``MUNIN_DEBUG``
-  Defines the debug level the plugin should run in.
+.. envvar:: MUNIN_DEBUG
 
-  Default: ``0``
+   Defines the debug level the plugin should run in.
 
-``MUNIN_MASTER_IP``
-  Contains the IP of the connecting master. If using ``munin-run``, it is equal
-  to the ``"-"`` string.
+   Default: ``0``
 
-``MUNIN_CAP_DIRTYCONFIG``
-  Indicates whether the master is able to understand the :ref:`dirtyconfig protocol <plugin-protocol-dirtyconfig>`.
+.. envvar:: MUNIN_MASTER_IP
 
-.. csv-table:: Values
+   Contains the IP of the connecting master. If using ``munin-run``, it is equal
+   to the ``"-"`` string.
+
+.. envvar:: MUNIN_CAP_DIRTYCONFIG
+
+   Indicates whether the master is able to understand the :ref:`dirtyconfig protocol <plugin-protocol-dirtyconfig>`.
+
+   .. csv-table:: Values
 	:header: "Value", "Description"
 
 	"0", "Master does not understand ``value`` lines that are returned within a ``config`` response."
 	"1", "Master is able to consume ``value`` lines right after reading the configuration from a plugin."
 
-``MUNIN_CAP_MULTIGRAPH``
-  Indicates whether the master is able to understand the :ref:`multigraph <plugin-protocol-multigraph>` keyword.
+.. envvar:: MUNIN_CAP_MULTIGRAPH
 
-.. csv-table:: Values
+   Indicates whether the master is able to understand the :ref:`multigraph <plugin-protocol-multigraph>` keyword.
+
+   .. csv-table:: Values
 	:header: "Value", "Description"
 
 	"0", "Master does not understand the ``multigraph`` keyword."
 	"1", "Master does understand the ``multigraph`` keyword."
 
-.. _plugin-env-MUNIN_PLUGSTATE:
+.. envvar:: MUNIN_PLUGSTATE
 
-``MUNIN_PLUGSTATE``
-  Defines the directory that a plugin must use if it wants to store
-  stateful data that is shared with other plugins.
+   Defines the directory that a plugin must use if it wants to store
+   stateful data that is shared with other plugins.
 
-  Default: ``/var/lib/munin-node/$USER``
+   Default: ``/var/lib/munin-node/$USER``
 
-.. note::
+   .. note::
 
-  Only the plugins that execute themselves as the same user can exchange data,
-  for obvious security reasons.
+      Only the plugins that execute themselves as the same user can exchange data,
+      for obvious security reasons.
 
-.. _plugin-env-MUNIN_STATEFILE:
+.. envvar:: MUNIN_STATEFILE
 
-``MUNIN_STATEFILE``
-  Defines a file that the plugin must use if it wants to store
-  stateful data for himself.
+   Defines a file that the plugin must use if it wants to store
+   stateful data for himself.
 
-  It is guaranteed to be unique, per plugin **and** per master. Therefore 2
-  masters will have 2 different state files for the same plugin.
+   It is guaranteed to be unique, per plugin **and** per master. Therefore 2
+   masters will have 2 different state files for the same plugin.
+
 
 Config related
 ==============

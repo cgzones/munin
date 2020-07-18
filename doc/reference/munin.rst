@@ -1,7 +1,5 @@
 .. _munin:
 
-.. program:: munin
-
 =======
  munin
 =======

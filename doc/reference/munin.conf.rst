@@ -1,4 +1,3 @@
-.. program:: munin.conf
 .. index::
    pair: virtual; node
 

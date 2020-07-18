@@ -68,7 +68,7 @@ Axis
 Legend
 ======
 
-.. options:: --legend-direction <value>
+.. option:: --legend-direction <value>
 
     The default value ``topdown`` causes the legend items to be written in the same order as the
     items are drawn in the graph.  For stacked graphs this means, that the area in the bottom of
