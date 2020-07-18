@@ -102,7 +102,7 @@ sub configure {
             },
             level => {
                 type    => SCALAR,
-                default => 'warning',
+                default => 'info',
                 regex =>
                     qr/^(?:debug|info|notice|warning|error|critical|alert|emergency)$/
             },
@@ -283,7 +283,7 @@ EMERGENCY and LOGCROAK are exported by default.
 Removes the default logging, and replaces it with the configured log output.
 
 Option "level" sets the minimum log level. Takes one argument, which is the log level to accept.
-Optional, default is "warning".
+Optional, default is "info".
 
 See L<Log::Dispatch> for a list of valid log levels.
 
