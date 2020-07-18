@@ -206,7 +206,7 @@ sub initialize_contacts {
 
 
 sub initialize_for_nagios {
-    if (   !defined $config->{'contact'}->{'nagios'}->{'command'}
+    if (not defined $config->{'contact'}->{'nagios'}->{'command'}
         and defined $config->{'nsca'}) {
         $config->{'contact'}->{'old-nagios'}->{'command'}
             = "$config->{nsca} $config->{nsca_server} -c $config->{nsca_config} -to 60";
@@ -309,8 +309,8 @@ sub process_service {
     if (!ref $hash) {
 	LOGCROAK("I was passed a non-hash!");
     }
-    return if (@limit_hosts and !grep (/^$host$/, @limit_hosts));
-    return if (@limit_services and !grep (/^$service$/, @limit_services));
+    return if (@limit_hosts and not grep (/^$host$/, @limit_hosts));
+    return if (@limit_services and not grep (/^$service$/, @limit_services));
 
     DEBUG "[DEBUG] processing service: $service";
 
@@ -347,13 +347,13 @@ sub process_service {
         $seen{$fname} = 1;
 
         my $field   = munin_get_node($hash, [$fname]);
-        next if (!defined $field or ref($field) ne "HASH");
+        next if (not defined $field or ref($field) ne "HASH");
         my $fpath   = munin_get_node_loc($field);
 
         my ($warn, $crit, $unknown_limit) = get_limits($field);
 
         # Skip fields without warning/critical definitions
-        next if (!defined $warn and !defined $crit);
+        next if (not defined $warn and not defined $crit);
 
 	# get the old state if there is one, or leave it empty.
 	$sth_ds->execute("$service_url/$fname", "ds");
@@ -686,7 +686,7 @@ sub generate_service_message {
             WARN("[WARNING] Missing configuration options for contact $c; skipping");
             next;
         }
-        if (@limit_contacts and !grep (/^$c$/, @limit_contacts)) {
+        if (@limit_contacts and not grep (/^$c$/, @limit_contacts)) {
             next;
         }
         my $obsess = 0;
@@ -714,7 +714,7 @@ sub generate_service_message {
 		$obsess += scalar @{$stats{$status_level}};
 	    }
 	}
-        if (!$hash->{'state_changed'} and !$obsess) {
+        if (not $hash->{'state_changed'} and not $obsess) {
             next;    # No need to send notification
         }
         INFO("[INFO] state of $hash->{'group'}::$hash->{'host'}::$hash->{'plugin'} has changed to $hash->{'worst'}, notifying $c");
@@ -786,7 +786,7 @@ sub generate_service_message {
         }
 
         DEBUG "[DEBUG] sending message to $c: \"$txt\"";
-        if(defined $pipe and !print $pipe $txt, "\n") {
+        if(defined $pipe and not print $pipe $txt, "\n") {
             WARN "[WARNING] Writing to pipe for $c failed: $!";
             close($pipe) or WARN "[WARNING] Failed to close pipe for $c: $!";
             $pipe = undef;

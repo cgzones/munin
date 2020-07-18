@@ -364,7 +364,7 @@ sub _concat_config_line_ok {
 
     my ($self, $prefix, $key, $value) = @_;
 
-    if (!defined($key) or !$key) {
+    if (not defined($key) or not $key) {
 	ERROR "[ERROR] Somehow we're missing a keyword sometime after section [$prefix]";
 	die "[ERROR] Somehow we're missing a keyword sometime after section [$prefix]";
     }

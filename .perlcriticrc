@@ -44,3 +44,9 @@ severity = 5
 
 [Variables::ProhibitUnusedVariables]
 severity = 5
+
+[ValuesAndExpressions::ProhibitMixedBooleanOperators]
+severity = 5
+
+[Modules::RequireEndWithOne]
+severity = 5

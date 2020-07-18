@@ -230,7 +230,7 @@ sub _snmp_check_require
 	my ($session, $oid, $filter) = @_;
 
 	my $value = _snmp_get_single($session, $oid);
-	return !(!defined $value or ($filter and $value !~ /$filter/));
+	return !(not defined $value or ($filter and $value !~ /$filter/));
 }
 
 

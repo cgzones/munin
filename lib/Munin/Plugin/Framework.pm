@@ -139,7 +139,7 @@ sub run {
 
 	if ( $DEBUG and
 	     $data->{negative} and
-	     !defined($graph->{fields}->{$data->{negative}}) ) {
+	     not defined($graph->{fields}->{$data->{negative}}) ) {
 	  print STDERR "Invalid negative data line ", $data->{negative}, " for $field.\n";
 	}
 
@@ -177,3 +177,5 @@ sub run {
     }
   }
 }
+
+1;

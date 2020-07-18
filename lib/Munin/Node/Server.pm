@@ -76,7 +76,7 @@ sub _add_services_to_nodes
 
         my @response = _run_service($service, 'config');
 
-        if (!@response or grep(/# Timed out/, @response)) {
+        if (not @response or grep(/# Timed out/, @response)) {
             DEBUG("Error running $service.  Dropping it.") if $config->{DEBUG};
             delete $services{$service};
             next;

@@ -343,7 +343,7 @@ sub parse_snmpconf_response
         }
     }
 
-    if ($self->is_wildcard and !$self->{index}) {
+    if ($self->is_wildcard and not $self->{index}) {
         $self->log_error(q{SNMP plugins with a trailing '_' need an index});
         # FIXME: this should be fatal!
     }

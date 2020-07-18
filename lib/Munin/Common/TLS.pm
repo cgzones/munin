@@ -311,7 +311,7 @@ sub _accept_or_connect {
 	Net::SSLeay::CTX_free ($self->{tls_context});
 	$self->{tls_session} = undef;
     }
-    elsif (!$tls_verified->{"verified"} and $self->{tls_paranoia} eq "paranoid")
+    elsif (not $tls_verified->{"verified"} and $self->{tls_paranoia} eq "paranoid")
     {
 	ERROR("Could not verify CA: " . Net::SSLeay::dump_peer_certificate($self->{tls_session}));
 	$self->_on_unverified_cert();

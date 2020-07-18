@@ -57,8 +57,8 @@ sub check_perms_if_paranoid
     my ($mode, $uid, $gid) = (stat $target)[2,4,5];
 
     if ($uid != 0
-     or $gid != 0 && ($mode & oct(20))
-     or               $mode & oct( 2) )
+        or ($gid != 0 and ($mode & oct(20)))
+        or $mode & oct( 2) )
     {
         warn sprintf "Warning: '$target' has dangerous permissions (%04o)",
                 ($mode & oct(7777));

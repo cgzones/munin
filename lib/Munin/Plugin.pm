@@ -399,7 +399,7 @@ these percentages against $base.
 sub adjust_threshold {
     my ($threshold, $base) = @_;
 
-    return if(!defined $threshold or !defined $base);
+    return if(not defined $threshold or not defined $base);
 
     $threshold =~ s!(\d+\.?\d*)%!$1*$base/100!eg;
 
@@ -617,7 +617,7 @@ sub need_multigraph {
     return if $ENV{MUNIN_CAP_MULTIGRAPH};
 
     ## no critic qw(InputOutput::ProhibitInteractiveTest)
-    if (-t and (!$ARGV[0] or ($ARGV[0] eq 'config'))) {
+    if (-t and (not $ARGV[0] or ($ARGV[0] eq 'config'))) {
 
 	# Catch people running the plugin on the command line.  Note
 	# that munin-node-configure may also be detected as "command
