@@ -36,7 +36,7 @@ test_expect_success "status (after start)" '
   service munin-httpd status
 '
 
-# munin-httpd is not ready immeadiately after startup - thus we need to wait a bit.
+# munin-httpd is not ready immediately after startup - thus we need to wait a bit.
 # But since even "nc -w 10 ..." returns immediately, if the port is still closed. Thus we use the
 # manual approach of waiting for the service to be ready.
 check_port() {

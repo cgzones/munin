@@ -28,3 +28,4 @@ multigraph multigraph_tester.tre
 multigraph multigraph_tester.tre
      'A program to fix permissions of munin directories and files',
      'Create graphs from RRD files',
+    Thanks to James Troup for the suggestion.

@@ -12,7 +12,7 @@ Debian-specific information regarding the Munin node
     enable by creating symlinks into /etc/munin/plugins as appropriate.
 
     Creating your own plugins is very easy.  Read the rest of the included
-    documents, take a look at the provided plugins, and write your own.  
+    documents, take a look at the provided plugins, and write your own.
     Please use Latin-1 as file encoding since munin expects only Latin-1
     characters. Place it in /etc/munin/plugins/, and restart the client.
     The core process will automatically notice the new service, and start
@@ -31,7 +31,7 @@ Debian-specific information regarding the Munin node
     changes will likely break intrusion detection systems which relies
     on dpkg's database for reference.
 
-    It is worth noting that many things can be overridden in the core process'
+    It is worth noting that many things can be overridden in the core process's
     configuration file, so it is quite possible that a modification is not
     necessary.
 
@@ -41,12 +41,12 @@ Debian-specific information regarding the Munin node
     We've got a mailing list.  You'll find subscription information at
     <http://lists.sourceforge.net/lists/listinfo/munin-users>.  All feedback
     are welcome.
-    
+
     If you feel like sending us things that can't be represented in binary (for
     example beautiful women fluent in assembly, bacillus anthracis, cash,
     explosives, and so on), take contact off-list, and we'll find a way of
     arranging the logistics.
-  
+
   Find the upstream source
   ------------------------
     This Debian package uses the upstream tarball located here:

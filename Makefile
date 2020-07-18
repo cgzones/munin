@@ -129,7 +129,8 @@ lint-spelling:
 lint-whitespace: FILES_WITH_TRAILING_WHITESPACE = $(shell grep -r -l --binary-files=without-match \
 				--exclude-dir=.git --exclude-dir=sandbox '\s$$' . \
 			| grep -vE '/(blib|build|_build|web/static)/' \
-			| grep -vE '/logo\.eps$$')
+			| grep -vE '/logo\.eps$$' \
+			| grep -vE '\.patch$$')
 
 lint-whitespace:
 	@if [ -n "$(FILES_WITH_TRAILING_WHITESPACE)" ]; then \
