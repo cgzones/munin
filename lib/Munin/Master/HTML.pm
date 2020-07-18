@@ -777,7 +777,7 @@ sub _get_params_services {
 
 		my %imgs = map { ("IMG$_" => "/$_url-$_.$graph_ext") } @times;
 		push @$services, {
-			NAME => $_service_title,
+			NAME => $_service_title ? $_service_title : $_s_name,
 			URLX => substr($_url, 1 + length($base_path)) . ($_subgraphs ? "/" : ".html"),
 			STATE_WARNING => $_state_warning,
 			STATE_CRITICAL => $_state_critical,
