@@ -79,6 +79,7 @@ Connector to query, defaults to "http-".$port
 
  #%# family=auto
  #%# capabilities=autoconf suggest
+ #%# language=ruby
 
 =cut
 
