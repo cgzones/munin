@@ -60,3 +60,6 @@ severity = 5
 
 [Variables::ProhibitAugmentedAssignmentInDeclaration]
 severity = 5
+
+[InputOutput::ProhibitExplicitStdin]
+severity = 5

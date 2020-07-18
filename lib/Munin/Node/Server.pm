@@ -403,7 +403,7 @@ sub _net_read {
         $_ = $session->{tls}->read();
     }
     else {
-        $_ = <STDIN>;
+        $_ = <STDIN>;    ## no critic qw(InputOutput::ProhibitExplicitStdin)
     }
     DEBUG('DEBUG: < ' . (defined $_ ? $_ : 'undef')) if $config->{DEBUG};
     return $_;
