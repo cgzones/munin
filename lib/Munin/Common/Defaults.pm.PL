@@ -21,12 +21,12 @@ my $MUNIN_STATEDIR  = $build->install_path('MUNIN_STATEDIR');
 my $MUNIN_VERSION   = $build->dist_version;
 
 print $fh <<'EOF';
+package Munin::Common::Defaults;
+
 use warnings;
 use strict;
 
 # Please note: This file is generated when munin is built.
-
-package Munin::Common::Defaults;
 
 use English qw(-no_match_vars);
 use File::Basename qw(dirname);

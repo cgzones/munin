@@ -54,3 +54,6 @@ severity = 5
 [Objects::ProhibitIndirectSyntax]
 forbid = create destroy
 severity = 5
+
+[Modules::RequireExplicitPackage]
+severity = 5

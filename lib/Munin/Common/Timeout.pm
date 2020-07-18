@@ -1,8 +1,8 @@
+package Munin::Common::Timeout;
+
 use warnings;
 use strict;
 
-
-package Munin::Common::Timeout;
 use base qw(Exporter);
 
 use Carp;
