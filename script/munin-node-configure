@@ -346,6 +346,23 @@ sub run_plugin
         return;
     }
 
+    # check if user and groups exist specified by the configuration
+    # otherwise configuration will later fail due to stderr content
+    eval {
+        $plugins->{library}->resolve_uid($name);
+        1;
+    } or do {
+        $plugin->{defaultreason} = "[[ Required user '$config->{sconf}{$name}{user}' not found ]]";
+        return;
+    };
+    eval {
+        $plugins->{library}->resolve_gids($name);
+        1;
+    } or do {
+        $plugin->{defaultreason} = "[[ Required group '$config->{sconf}{$name}{group}' not found ]]";
+        return;
+    };
+
 	DEBUG("Running '$mode' on $name" );
     my $res = $plugins->{library}->fork_service($name, $mode);
 

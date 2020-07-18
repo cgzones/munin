@@ -125,7 +125,7 @@ sub export_service_environment {
     print STDERR "# Setting up environment\n" if $config->{DEBUG};
 
     # We append the USER to the MUNIN_PLUGSTATE, to avoid CVE-2012-3512
-    my $uid = $self->_resolve_uid($service);
+    my $uid = $self->resolve_uid($service);
     my $user = getpwuid($uid);
     $ENV{MUNIN_PLUGSTATE} = "$Munin::Common::Defaults::MUNIN_PLUGSTATE/$user";
 
@@ -143,7 +143,7 @@ sub export_service_environment {
 
 # Resolves the uid the service should be run as.  If it cannot be resolved, an
 # exception will be thrown.
-sub _resolve_uid
+sub resolve_uid
 {
     my ($self, $service) = @_;
 
@@ -162,7 +162,7 @@ sub _resolve_uid
 
 # resolves the GIDs (real and effective) the service should be run as.
 # http://munin-monitoring.org/wiki/plugin-conf.d
-sub _resolve_gids
+sub resolve_gids
 {
     my ($self, $service) = @_;
 
@@ -207,10 +207,10 @@ sub change_real_and_effective_user_and_group
 
     if ($REAL_USER_ID == $root_uid) {
         # Resolve UIDs now, as they are not resolved when the config was read.
-        my $uid = $self->_resolve_uid($service);
+        my $uid = $self->resolve_uid($service);
 
         # Ditto for groups
-        my ($rgid, $egids) = $self->_resolve_gids($service);
+        my ($rgid, $egids) = $self->resolve_gids($service);
 
         eval {
             if ($Munin::Common::Defaults::MUNIN_HASSETR) {
@@ -245,7 +245,7 @@ sub exec_service
     my ($self, $service, $arg) = @_;
 
     # XXX - Create the statedir for the user
-    my $uid = $self->_resolve_uid($service);
+    my $uid = $self->resolve_uid($service);
     Munin::Node::OS->mkdir_subdir("$Munin::Common::Defaults::MUNIN_PLUGSTATE", $uid);
 
     $self->change_real_and_effective_user_and_group($service);
