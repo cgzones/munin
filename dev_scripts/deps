@@ -50,5 +50,6 @@ cat <<EOF
   rrdcached
   sqlite3
   wget
+  graphviz
 EOF
 )
