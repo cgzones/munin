@@ -39,9 +39,11 @@ my $listen = ":";
 
 print_usage_and_exit()
   unless GetOptions(
-    "listen=s"  => \$listen,
-    "version" => \&print_version_and_exit,
-    "help"    => \&print_usage_and_exit,
+    "debug"    => \&enable_debug,
+    "listen=s" => \$listen,
+    "sandbox"  => \&sandbox_init,
+    "version"  => \&print_version_and_exit,
+    "help"     => \&print_usage_and_exit,
   );
 
 die "ERROR: Invalid listen argument supplied: '$listen'\n" unless $listen =~ /^((\S*|\[\S+\]):)?(\d+)?$/x;
@@ -50,6 +52,16 @@ my $port = defined $3 ? $3 : 4948;
 
 # start the server
 Munin::Master::Http->new( { host => $host, port => $port } )->run( prefork => 1, max_servers => 10 );
+
+
+sub enable_debug {
+    Munin::Common::Logger::configure( level => 'debug' );
+}
+
+
+sub sandbox_init {
+    Munin::Common::Logger::configure( output => 'screen' );
+}
 
 
 sub print_usage_and_exit {
