@@ -66,3 +66,6 @@ severity = 5
 
 [Modules::ProhibitMultiplePackages]
 severity = 5
+
+[Variables::ProhibitReusedNames]
+severity = 5

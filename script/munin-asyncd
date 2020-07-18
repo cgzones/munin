@@ -97,24 +97,24 @@ unless (-d $SPOOLDIR) {
 
 my $process_name = "main";
 
-my $sock = IO::Socket::INET->new(
+my $main_sock = IO::Socket::INET->new(
 	PeerAddr        => "$host",
 	Proto   => 'tcp'
 );
-if (!$sock) {
+if (!$main_sock) {
 	print STDERR "[$$][$process_name] Failed to connect to munin-node - trying again in a few seconds ...\n" if $verbose;
 	sleep 20;
-	$sock = IO::Socket::INET->new(
+	$main_sock = IO::Socket::INET->new(
 		PeerAddr => "$host",
 		Proto => 'tcp'
 	) || LOGCROAK("Error connecting to munin node ($host): $!");
 }
-my $nodeheader = <$sock>;
+my $nodeheader = <$main_sock>;
 print STDERR "[sock][>] nodes\n" if $debug;
-print $sock "nodes\n";
+print $main_sock "nodes\n";
 
 # get all virtual node names exposed by one physical node
-while(my $line = <$sock>) {
+while(my $line = <$main_sock>) {
 	chomp($line);
 	print STDERR "[sock][<] $line\n" if $debug;
 	last if $line =~ /^\./;
@@ -126,8 +126,8 @@ while(my $line = <$sock>) {
 	push(@nodes, $line);
 }
 
-print $sock "quit\n";
-close ($sock);
+print $main_sock "quit\n";
+close ($main_sock);
 ( $metahostname ) = ( $nodeheader =~ /munin node at (\S+)\n/);
 $metahostname = "unknown" unless $metahostname;
 

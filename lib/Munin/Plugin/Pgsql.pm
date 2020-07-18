@@ -504,12 +504,12 @@ sub runquery {
 
             # Query returning a single row with one column for each counter
             # Turn this into a regular resultset
-            my $r     = [];
+            my $row   = [];
             my @dbrow = $s->fetchrow_array();
             for (my $i = 0; $i < scalar(@dbrow); $i++) {
-                push @$r, [$s->{NAME}->[$i], $dbrow[$i]];
+                push @$row, [$s->{NAME}->[$i], $dbrow[$i]];
             }
-            return $r;
+            return $row;
         }
         else {
             return $s->fetchall_arrayref();

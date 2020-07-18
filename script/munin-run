@@ -118,7 +118,6 @@ sub main
     # @ARGV, the latter takes precedence.
     $paranoia = $config->{paranoia};
 
-    my $config = Munin::Node::Config->instance();
     $config->parse_config_from_file($conffile);
 
     # Run directly or execute recursively via "systemd-run".

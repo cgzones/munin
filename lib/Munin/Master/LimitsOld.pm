@@ -800,14 +800,14 @@ sub generate_service_message {
 # Homegrown templating engine.
 # XXX - Not sure it's a very good idea
 sub message_expand {
-    my $hash = shift;
-    my $text = shift;
-    my @res  = ();
+    my $hash   = shift;
+    my $text   = shift;
+    my @result = ();
 
 
     while (defined($text) && length($text)) {
         if ($text =~ /^([^\$]+|)(?:\$(\{.*)|)$/) {
-            push @res, $1;
+            push @result, $1;
             $text = $2;
         }
 
@@ -868,11 +868,11 @@ sub message_expand {
             }
             $a[0] = $res;
         }
-        push @res, $a[0];
+        push @result, $a[0];
         $text = $a[1];
     }
 
-    return join('', @res);
+    return join('', @result);
 }
 
 =head1 SUBROUTINES
