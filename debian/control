@@ -7,6 +7,7 @@ Uploaders: Holger Levsen <holger@debian.org>,
 Build-Depends-Indep:
  default-jdk-headless,
  devscripts,
+ graphviz,
  libdbd-pg-perl,
  libdbd-sqlite3-perl,
  libdevel-confess-perl,
