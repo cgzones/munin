@@ -95,6 +95,7 @@ Depends: ${perl:Depends}, ${misc:Depends},
  munin-common,
  procps,
  gawk,
+ libfile-readbackwards-perl
 Suggests:
  acpi | lm-sensors,
  ethtool,
@@ -103,7 +104,6 @@ Suggests:
  smartmontools,
  net-tools,
  time,
- libfile-readbackwards-perl,
  libnet-netmask-perl,
  libxml-simple-perl,
  logtail,
@@ -111,7 +111,7 @@ Suggests:
  libnet-telnet-perl,
  libxml-parser-perl,
  libcache-cache-perl,
- libnet-dns-perl,
+ libnet-dns-perl
 Replaces: munin-plugins-extra (<< 2.999.1-1~)
 Breaks: munin-plugins-extra (<< 2.999.1-1~)
 Description: network-wide graphing framework (plugins for node)
