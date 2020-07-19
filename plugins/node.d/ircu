@@ -39,17 +39,19 @@ if ($ARGV[0] and $ARGV[0] eq "autoconf")
 {
     if ($ret)
     {
-	print "no ($ret)\n";
-	exit 0;
+        print "no ($ret)\n";
+        exit 0;
     }
-    my $irc = new Net::IRC;
-    my $conn;
 
-    $irc = new Net::IRC; $conn = $irc->newconn(Nick => 'munin-ircd', Server => 'localhost');
+    my $irc = Net::IRC->new();
+    my $errors = undef;
+    open local(*STDERR), '>', \$errors;
+    my $conn = $irc->newconn(Nick => 'munin-ircd', Server => 'localhost');
     if (!$conn)
     {
-	print "no (Couldn't connect to IRC server)\n";
-	exit 0;
+        $errors = $errors ? chomp($errors) : "unknown";
+        print "no (Couldn't connect to IRC server: $errors)\n";
+        exit 0;
     }
     print "yes\n";
     exit 0;
