@@ -31,6 +31,7 @@ case "$1" in
     configure)
         ensure_usergroup
         install -o munin -g munin -m 0755 -d /var/lib/munin
+        install -o munin -g munin -m 0755 -d /var/log/munin
         install -o munin -g munin -m 0755 -d /var/spool/munin/update
         if dpkg --compare-versions "$2" le "2.1.999-1~" ; then
             migration_remove_munin_2x_files
