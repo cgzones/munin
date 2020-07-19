@@ -45,7 +45,8 @@ sub run {
     $self->_create_rundir_if_missing();
 
     $self->_do_with_timing(sub {
-        INFO "[INFO]: Starting munin-update";
+	INFO "[INFO]: Starting munin-update";
+	_log_state("Starting munin-update");
 
 	# Create the DB, using a local block to close the DB cnx
 	{
@@ -132,6 +133,7 @@ sub _do_with_timing {
 
     my $update_time_string = sprintf("%.2f", $update_time);
     INFO "[INFO]: Munin-update finished ($update_time sec)";
+    _log_state("Munin-update finished ($update_time sec)");
 
     return $retval;
 }
@@ -222,6 +224,8 @@ sub _handle_worker_result {
 
     my $update_time = sprintf("%.2f", $time_used);
     INFO "[INFO]: Munin-update finished for node $worker_id ($update_time sec)";
+    _log_state("Munin-update finished for node $worker_id ($update_time sec)");
+
     $self->_db_stats("UD", $worker_id, $time_used);
 
     $self->{service_configs}{$worker_id} = $service_configs;
@@ -308,6 +312,19 @@ sub _db_params_update {
 
 	$dbh->commit();
 	return \%old_params;
+}
+
+sub _log_state {
+	my ($message) = @_;
+
+	open(my $fh, '>>', "$config->{logdir}/munin-update.log")
+	    or do {
+		carp "Cannot open logfile '$config->{logdir}/munin-update.log': $!";
+		return;
+	    };
+
+	say $fh $message;
+	close $fh;
 }
 
 1;
