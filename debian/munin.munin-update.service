@@ -1,0 +1,11 @@
+[Unit]
+Description=Munin update service
+Documentation=man:munin-update(1) https://guide.munin-monitoring.org/en/latest/reference/munin-update.html
+
+[Service]
+Type=oneshot
+User=munin
+ExecStart=/usr/bin/munin-update
+
+PrivateTmp=true
+ProtectSystem=full

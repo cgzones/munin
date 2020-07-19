@@ -73,6 +73,7 @@ override_dh_installsystemd:
 	dh_installsystemd --package=munin-node
 	dh_installsystemd --name=munin-httpd
 	dh_installsystemd --name=munin-rrdcached
+	dh_installsystemd --name=munin-update
 
 override_dh_installdocs:
 	dh_installdocs --link-doc=munin-common --doc-main-package=munin-common -p munin-doc

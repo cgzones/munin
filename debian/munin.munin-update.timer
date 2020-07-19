@@ -1,0 +1,10 @@
+[Unit]
+Description=Munin update timer
+Documentation=man:munin-update(1) https://guide.munin-monitoring.org/en/latest/reference/munin-update.html
+
+[Timer]
+# every 5 minutes
+OnCalendar=*:0/5
+
+[Install]
+WantedBy=timers.target

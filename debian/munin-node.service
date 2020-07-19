@@ -1,6 +1,6 @@
 [Unit]
 Description=Munin Node
-Documentation=man:munin-node(1) http://guide.munin-monitoring.org/en/latest/reference/munin-node.html
+Documentation=man:munin-node(1) https://guide.munin-monitoring.org/en/latest/reference/munin-node.html
 After=network-online.target
 
 [Service]
@@ -9,6 +9,11 @@ Type=forking
 Restart=always
 ExecStart=/usr/bin/munin-node $DAEMON_ARGS
 PIDFile=/run/munin-node.pid
+
+# Hardening Options
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH CAP_SETUID CAP_SETGID CAP_SYS_PTRACE
+LockPersonality=true
+NoNewPrivileges=true
 # Plugins like "smart_" require access to devices
 PrivateDevices=false
 PrivateTmp=true

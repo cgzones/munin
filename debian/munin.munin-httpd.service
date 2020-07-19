@@ -1,6 +1,6 @@
 [Unit]
 Description=Munin HTTPD
-Documentation=man:munin-httpd http://guide.munin-monitoring.org/en/latest/reference/munin-httpd.html
+Documentation=man:munin-httpd(1) https://guide.munin-monitoring.org/en/latest/reference/munin-httpd.html
 
 [Service]
 Type=simple
