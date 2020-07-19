@@ -45,7 +45,7 @@ GPLv2
 
 =head1 MAGIC MARKERS
 
- #%# family=manual
+ #%# family=auto
  #%# capabilities=autoconf
 
 =cut
