@@ -35,6 +35,7 @@ case "$1" in
         if dpkg --compare-versions "$2" le "2.1.999-1~" ; then
             migration_remove_munin_2x_files
         fi
+        test -d /run/systemd/system && systemctl mask munin-tmpfiles
         ;;
     abort-upgrade|abort-deconfigure|abort-remove)
         :
