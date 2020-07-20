@@ -47,8 +47,8 @@ print_usage_and_exit()
   );
 
 die "ERROR: Invalid listen argument supplied: '$listen'\n" unless $listen =~ /^((\S*|\[\S+\]):)?(\d+)?$/x;
-my $host = defined $2 ? $2 : "*";
-my $port = defined $3 ? $3 : 4948;
+my $host = (defined $2 and $2 ne '') ? $2 : 'localhost';
+my $port = (defined $3 and $2 ne '') ? $3 : 4948;
 
 # start the server
 Munin::Master::Http->new( { host => $host, port => $port } )->run( prefork => 1, max_servers => 10 );
